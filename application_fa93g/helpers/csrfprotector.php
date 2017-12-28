@@ -212,7 +212,7 @@ if (!defined('__CSRF_PROTECTOR__')) {
 							$value
 						)
 					);
-					exit;
+					trigger_error();
 				}
 			}
 
@@ -368,7 +368,7 @@ if (!defined('__CSRF_PROTECTOR__')) {
 				case 0:
 					//send 403 header
 					header('HTTP/1.0 403 Forbidden');
-					exit("<h2>403 Access Forbidden by CSRFProtector!</h2>");
+					trigger_error("<h2>403 Access Forbidden by CSRFProtector!</h2>");
 					break;
 				case 1:
 					//unset the query parameters and forward
@@ -384,12 +384,12 @@ if (!defined('__CSRF_PROTECTOR__')) {
 					header("location: $location");
 				case 3:
 					//send custom error message
-					exit(self::$config['customErrorMessage']);
+					trigger_error(self::$config['customErrorMessage']);
 					break;
 				case 4:
 					//send 500 header -- internal server error
 					header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
-					exit("<h2>500 Internal Server Error!</h2>");
+					trigger_error("<h2>500 Internal Server Error!</h2>");
 					break;
 				default:
 					//unset the query parameters and forward
